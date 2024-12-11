@@ -43,15 +43,15 @@ If you'd like to recreate this repository, you can follow these instructions:
 1. Update `vite.config.ts`.
 
    ```typescript
-   import { defineConfig } from "vite";
-   import { svelte } from "@sveltejs/vite-plugin-svelte";
-   import wasm from "vite-plugin-wasm";
-   import topLevelAwait from "vite-plugin-top-level-await";
+   import { defineConfig } from 'vite'
+    import react from '@vitejs/plugin-react'
+    import wasm from "vite-plugin-wasm";
+    import topLevelAwait from "vite-plugin-top-level-await";
 
-   // https://vitejs.dev/config/
-   export default defineConfig({
-     plugins: [svelte(), wasm(), topLevelAwait()],
-   });
+    // https://vite.dev/config/
+    export default defineConfig({
+    plugins: [react(), wasm(), topLevelAwait()],
+    })
    ```
 
 1. Update `src/lib.rs`.
@@ -69,17 +69,33 @@ If you'd like to recreate this repository, you can follow these instructions:
 
 1. Update `src/App.svelte`.
 
-   ```svelte
-   <script lang="ts">
-     import { greet } from "../pkg/vite_rust_wasm";
-   </script>
+   ```javascript
+    import { useState } from 'react'
+    import reactLogo from './assets/react.svg'
+    import viteLogo from '/vite.svg'
+    import './App.css'
+    import { greet } from "../pkg/vite_rust_wasm";
 
-   <main>
-     <div>
-       <h1>Vite + Svelte + WebAssembly</h1>
-       <h2>{greet("Your sentence !")}</h2>
-     </div>
-   </main>
+    function App() {
+    const [count, setCount] = useState(0)
+
+    return (
+        <>
+        <div>
+            <a href="https://vite.dev" target="_blank">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
+            </a>
+            <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+            </a>
+        </div>
+        <h1>Vite + Svelte + WebAssembly</h1>
+        <h2>{greet("JUNIA XP students!")}</h2>
+        </>
+    )
+    }
+
+    export default App
    ```
 
 1. Build the WebAssembly.
